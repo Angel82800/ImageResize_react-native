@@ -15,7 +15,8 @@ import {
 } from 'react-native';
 import ImageResizer from 'react-native-image-resizer';
 import  {RNCamera}  from 'react-native-camera';
-import RNFetchBlob from 'react-native-fetch-blob'
+import RNFetchBlob from 'react-native-fetch-blob';
+import { sendPhoto } from './Api';
 
 
 type Props = {};
@@ -51,8 +52,12 @@ export default class App extends Component<Props> {
             console.log('oops', err)
           })
           ifstream.onEnd(() => {
-            console.log("data",data1);//Data
-            // <Image source={{ uri : 'data:image/png,base64' + data1 }} />
+            // console.log("data",data1);//Data
+            let param = { "skin":[{"ts":1515110600,"encoded_images":[data1]}] };
+            console.log(param);
+            sendPhoto(App, param,function(callback){
+              console.log(callback);
+            });
           })
       });
 
